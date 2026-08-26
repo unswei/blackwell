@@ -1,0 +1,28 @@
+# Python bytecode and environments
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+
+# Build artefacts
+build/
+dist/
+*.egg-info/
+site/
+
+# Test, lint and type-checker caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+
+# Notebook checkpoints and JAX profiling output
+.ipynb_checkpoints/
+*.trace.json.gz

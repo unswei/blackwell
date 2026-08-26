@@ -1,0 +1,12 @@
+site_name: Blackwell
+site_description: JAX-native probabilistic robotics
+repo_url: https://github.com/unswei/blackwell
+repo_name: unswei/blackwell
+
+theme:
+  name: mkdocs
+
+nav:
+  - Home: index.md
+  - Development: development.md
+  - Platforms: platforms.md

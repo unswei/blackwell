@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "blackwell"
+version = "0.0.0"
+description = "JAX-native probabilistic robotics"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Blackwell contributors" }]
+keywords = ["jax", "probabilistic-robotics", "robotics", "state-estimation"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["jax>=0.6"]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.8"]
+docs = ["mkdocs>=1.6", "mkdocstrings[python]>=0.27"]
+dev = [
+  "build>=1.2",
+  "matplotlib>=3.8",
+  "mkdocs>=1.6",
+  "mkdocstrings[python]>=0.27",
+  "pytest>=8.3",
+  "ruff>=0.8",
+]
+
+[project.urls]
+Documentation = "https://github.com/unswei/blackwell"
+Issues = "https://github.com/unswei/blackwell/issues"
+Source = "https://github.com/unswei/blackwell"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/blackwell"]
+
+[tool.pytest.ini_options]
+addopts = ["-ra"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

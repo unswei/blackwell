@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use Blackwell in academic work, please cite this software."
+title: "Blackwell"
+type: software
+authors:
+  - name: "Blackwell contributors"
+version: 0.0.0
+date-released: 2026-08-26
+repository-code: "https://github.com/unswei/blackwell"
+license: Apache-2.0
