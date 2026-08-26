@@ -33,7 +33,9 @@ uv run mkdocs build --strict
 ```
 
 The continuous-integration matrix runs Linux/Python 3.11 and macOS/Python 3.13.
-Documentation is built strictly on pull requests and published from `main`.
+Source documentation is built strictly on pull requests. The public manual is
+published from the EICRL lab website repository at
+<https://unswei.github.io/blackwell/>.
 
 ## Test numerical work
 

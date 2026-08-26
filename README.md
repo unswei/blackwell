@@ -17,7 +17,11 @@ before version 1.0.
 **[Documentation](https://unswei.github.io/blackwell/)** ·
 **[Five-minute localisation](https://unswei.github.io/blackwell/getting-started/quickstart/)** ·
 **[Examples](https://unswei.github.io/blackwell/examples/)** ·
-**[API reference](https://unswei.github.io/blackwell/reference/)**
+**[API reference](https://unswei.github.io/blackwell/api/)**
+
+The public manual is part of the EICRL lab website, giving Blackwell the same
+navigation, accessibility and visual language as the lab's other resources.
+This repository retains its source documentation for local validation.
 
 ## Install
 

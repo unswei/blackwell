@@ -24,17 +24,10 @@ on:
 
 permissions:
   contents: read
-  pages: read
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      pages-enabled: ${{ steps.pages.outputs.enabled }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -48,48 +41,3 @@ jobs:
           python examples/se2_localisation.py
           python examples/particle_localisation.py
       - run: mkdocs build --strict
-
-      - name: Upload documentation preview
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation-site
-          path: site
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Check GitHub Pages availability
-        if: github.event_name != 'pull_request'
-        id: pages
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if gh api "repos/${GITHUB_REPOSITORY}/pages" > /dev/null 2>&1; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::GitHub Pages is unavailable; the validated site remains available as the documentation-site artefact."
-          fi
-
-      - if: steps.pages.outputs.enabled == 'true'
-        uses: actions/configure-pages@v6
-      - if: steps.pages.outputs.enabled == 'true'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: site
-
-  deploy:
-    if: >-
-      github.event_name != 'pull_request' &&
-      needs.build.outputs.pages-enabled == 'true'
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
