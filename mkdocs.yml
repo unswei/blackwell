@@ -9,4 +9,5 @@ theme:
 nav:
   - Home: index.md
   - Development: development.md
+  - Public interface design: interface-design.md
   - Platforms: platforms.md

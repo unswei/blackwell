@@ -2,9 +2,11 @@
 
 from importlib.metadata import PackageNotFoundError, version
 
+from blackwell.beliefs import GaussianBelief, ParticleBelief
+
 try:
     __version__ = version("blackwell")
 except PackageNotFoundError:  # pragma: no cover - supports direct source imports.
     __version__ = "0.0.0"
 
-__all__ = ["__version__"]
+__all__ = ["GaussianBelief", "ParticleBelief", "__version__"]
