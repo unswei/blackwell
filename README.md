@@ -39,8 +39,7 @@ extra appropriate to the target platform, following the
 ## Repository boundaries
 
 This repository contains the Blackwell software, its concise documentation and
-runnable examples. The Blackwell book, extended notebooks and teaching
-materials live in a separate repository and are intentionally not tracked here.
+runnable examples.
 
 ## Licence
 
