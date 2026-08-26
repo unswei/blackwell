@@ -1,45 +1,126 @@
 # Blackwell
 
-Blackwell is a small, JAX-native probabilistic robotics library. Its pre-alpha
-public API provides manifold-aware Gaussian beliefs, weighted particles,
-Euclidean and SE(2) state spaces, an extended Kalman filter, a bootstrap
-particle filter, simulation helpers and uncertainty metrics.
+[![Test](https://github.com/unswei/blackwell/actions/workflows/test.yml/badge.svg)](https://github.com/unswei/blackwell/actions/workflows/test.yml)
+[![Documentation](https://github.com/unswei/blackwell/actions/workflows/docs.yml/badge.svg)](https://github.com/unswei/blackwell/actions/workflows/docs.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/)
+[![Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue)](LICENSE)
 
-The API emerged from four private interface experiments and is deliberately
-compact. It is ready for hands-on evaluation, but remains pre-1.0: expect the
-package to evolve as additional state spaces and model families are introduced.
+Blackwell is a compact, JAX-native probabilistic-robotics library. It provides
+manifold-aware Gaussian beliefs, weighted particles, Euclidean and SE(2) state
+spaces, an extended Kalman filter, a bootstrap particle filter, reproducible
+simulation and uncertainty metrics.
+
+It is useful today for planar localisation, linear state estimation and
+estimator research, while remaining deliberately pre-alpha: expect API changes
+before version 1.0.
+
+**[Documentation](https://unswei.github.io/blackwell/)** ·
+**[Five-minute localisation](https://unswei.github.io/blackwell/getting-started/quickstart/)** ·
+**[Examples](https://unswei.github.io/blackwell/examples/)** ·
+**[API reference](https://unswei.github.io/blackwell/reference/)**
+
+## Install
+
+Blackwell requires Python 3.11 or newer and is not yet on PyPI. Install the
+current Git revision:
+
+```console
+python -m pip install "blackwell @ git+https://github.com/unswei/blackwell.git"
+```
+
+Accelerator-specific JAX packages are intentionally not pinned. See the
+[installation guide](https://unswei.github.io/blackwell/getting-started/installation/)
+for GPU/TPU and development setups.
+
+## A first SE(2) estimate
+
+```python
+import jax
+import jax.numpy as jnp
+
+from blackwell import GaussianBelief
+from blackwell.filters.ekf import ExtendedKalmanFilter
+from blackwell.models import range_bearing
+from blackwell.models import se2 as se2_models
+from blackwell.spaces import se2
+
+filter_ = ExtendedKalmanFilter(se2, se2_models, range_bearing)
+dynamics = se2_models.BodyMotion(
+    process_covariance=jnp.diag(jnp.array([0.01, 0.01, 0.0025]))
+)
+observation = range_bearing.KnownLandmarksRangeBearing(
+    landmarks=jnp.array([[5.0, 0.0], [0.0, 5.0]]),
+    measurement_covariance=jnp.diag(jnp.array([0.08, 0.02])),
+)
+belief = GaussianBelief(
+    mean=jnp.array([0.0, 0.0, 0.0]),
+    covariance=jnp.diag(jnp.array([0.5, 0.5, 0.1])),
+)
+
+belief = jax.jit(filter_.step)(
+    belief,
+    dynamics,
+    observation,
+    jnp.array([0.3, 0.0, 0.04]),
+    range_bearing.observe(jnp.array([0.35, 0.08, 0.05]), observation),
+)
+print(belief.mean)
+```
+
+SE(2) states are `[x, y, heading]`; controls and covariance use local
+body-frame tangent coordinates `[forward, lateral, turn]`.
+
+## What is included?
+
+- Euclidean and right-retraction SE(2) state spaces
+- Linear dynamics and observations
+- SE(2) body-motion and known-landmark range-bearing models
+- Manifold-aware extended Kalman filtering
+- Bootstrap particle filtering with explicit ESS and systematic resampling
+- Reproducible trajectory simulation
+- RMSE, planar position RMSE and NEES metrics
+- Runnable linear, SE(2) EKF and particle-localisation examples
+
+Blackwell does not yet include SE(3), smoothing, SLAM state augmentation,
+data association, sensor drivers or production persistence. See
+[Choose an estimator](https://unswei.github.io/blackwell/getting-started/choose-an-estimator/)
+for the current fit and limits.
 
 ## Design commitments
 
 - JAX is the sole numerical backend.
-- The mathematical core is functional and immutable.
-- State uncertainty lives in tangent coordinates, including for robotic
-  manifolds such as SE(2) and SE(3).
-- Models describe uncertainty; filters perform inference.
-- Random keys, JIT compilation and covariance regularisation remain explicit.
-- Evaluation and consistency metrics are core features rather than add-ons.
+- Mathematical kernels are pure and beliefs are immutable PyTrees.
+- Manifold uncertainty lives in local tangent coordinates.
+- Geometry, stochastic models and inference remain separate.
+- Random keys, JIT compilation and resampling policy stay explicit.
+- Simulation and consistency metrics are part of the public API.
 
-## Development
+## Run the examples
 
-Blackwell uses [uv](https://docs.astral.sh/uv/) for its reproducible development
-environment.
+```console
+git clone https://github.com/unswei/blackwell.git
+cd blackwell
+uv sync --all-extras
+uv run python examples/quickstart.py
+uv run python examples/linear_kalman_filter.py
+uv run python examples/se2_localisation.py --plot localisation.png
+uv run python examples/particle_localisation.py --plot particles.png
+```
+
+## Contribute
+
+Set up the reproducible development environment and run all local checks:
 
 ```console
 uv sync --all-extras
-uv run pytest
 uv run ruff check .
+uv run pytest
 uv run python -m build
-uv run python examples/se2_localisation.py
+uv run mkdocs build --strict
 ```
 
-GPU-enabled JAX is deliberately not pinned by this project. Install the JAX
-extra appropriate to the target platform, following the
-[official JAX installation guide](https://docs.jax.dev/en/latest/installation.html).
-
-## Repository boundaries
-
-This repository contains the Blackwell software, its concise documentation and
-runnable examples.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for workflow, test and documentation
+expectations.
 
 ## Licence
 

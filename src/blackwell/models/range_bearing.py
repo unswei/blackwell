@@ -11,14 +11,30 @@ from blackwell.spaces import se2 as space
 
 
 class KnownLandmarksRangeBearing(NamedTuple):
-    """Range-bearing observations of fixed two-dimensional world landmarks."""
+    """Range-bearing observations of fixed two-dimensional world landmarks.
+
+    Attributes:
+        landmarks: World-frame landmark positions with shape
+            ``(landmark_count, 2)``.
+        measurement_covariance: Per-landmark covariance for ``[range, bearing]``
+            with shape ``(2, 2)``. Bearings use radians.
+    """
 
     landmarks: Array
     measurement_covariance: Array
 
 
 def observe(state: Array, model: KnownLandmarksRangeBearing) -> Array:
-    """Predict ``[range, bearing]`` observations at every known landmark."""
+    """Predict ``[range, bearing]`` at every known landmark.
+
+    Args:
+        state: SE(2) pose ``[x, y, heading]`` in the landmark world frame.
+        model: Landmark locations and per-landmark measurement covariance.
+
+    Returns:
+        Expected measurements with shape ``(landmark_count, 2)`` and bearings
+        wrapped to ``[-pi, pi]``.
+    """
 
     delta = model.landmarks - state[:2]
     cosine = jnp.cos(state[2])
@@ -33,6 +49,14 @@ def observe(state: Array, model: KnownLandmarksRangeBearing) -> Array:
 
 def observation_jacobian(state: Array, model: KnownLandmarksRangeBearing) -> Array:
     """Return local-tangent Jacobians with shape ``(landmark_count, 2, 3)``.
+
+    Args:
+        state: SE(2) pose at which the Jacobian is evaluated.
+        model: Known world-frame landmarks.
+
+    Returns:
+        Jacobians with measurement axes ``[range, bearing]`` and tangent axes
+        ``[forward, lateral, turn]``.
 
     The range-bearing observation is singular at a landmark coincident with the
     robot pose, so that configuration is intentionally not defined.
@@ -63,7 +87,15 @@ def observation_jacobian(state: Array, model: KnownLandmarksRangeBearing) -> Arr
 def measurement_covariance(
     state: Array, model: KnownLandmarksRangeBearing
 ) -> Array:
-    """Return the block-diagonal covariance for all landmark observations."""
+    """Return block-diagonal covariance for all landmark observations.
+
+    Args:
+        state: Current pose; unused because covariance is constant.
+        model: Landmark observation parameters.
+
+    Returns:
+        Covariance with shape ``(2 * landmark_count, 2 * landmark_count)``.
+    """
 
     del state
     landmark_count = model.landmarks.shape[0]
@@ -76,7 +108,17 @@ def measurement_covariance(
 def measurement_residual(
     measurement: Array, expected: Array, model: KnownLandmarksRangeBearing
 ) -> Array:
-    """Return residuals with bearings wrapped across the principal-angle cut."""
+    """Return residuals with bearings wrapped across the angle cut.
+
+    Args:
+        measurement: Observed values with shape ``(landmark_count, 2)``.
+        expected: Predicted values with matching shape.
+        model: Landmark observation parameters; unused by the residual.
+
+    Returns:
+        ``measurement - expected`` with bearing columns wrapped to
+        ``[-pi, pi]``.
+    """
 
     del model
     residual = measurement - expected

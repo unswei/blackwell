@@ -1,14 +1,156 @@
 site_name: Blackwell
 site_description: JAX-native probabilistic robotics
+site_author: Blackwell contributors
+site_url: https://unswei.github.io/blackwell/
 repo_url: https://github.com/unswei/blackwell
 repo_name: unswei/blackwell
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; Blackwell contributors · Apache-2.0
+not_in_nav: |
+  api.md
 
 theme:
-  name: mkdocs
+  name: material
+  custom_dir: docs/overrides
+  language: en
+  font: false
+  icon:
+    logo: material/radar
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Follow system theme
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Use dark theme
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Use light theme
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            docstring_section_style: list
+            heading_level: 2
+            members_order: source
+            show_root_heading: true
+            show_root_full_path: false
+            show_source: true
+            show_signature_annotations: true
+            separate_signature: true
+            signature_crossrefs: true
+            filters:
+              - "!^_"
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: [.]
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/unswei/blackwell
+      name: Blackwell on GitHub
 
 nav:
   - Home: index.md
-  - API guide: api.md
-  - Development: development.md
-  - Public interface design: interface-design.md
-  - Platforms: platforms.md
+  - Start here:
+      - Installation: getting-started/installation.md
+      - Five-minute localisation: getting-started/quickstart.md
+      - Choose an estimator: getting-started/choose-an-estimator.md
+  - Concepts:
+      - Overview: concepts/index.md
+      - Beliefs and tangent spaces: concepts/beliefs-and-tangent-spaces.md
+      - Models and filters: concepts/models-and-filters.md
+      - JAX execution model: concepts/jax-execution.md
+  - User guide:
+      - Extended Kalman filter: guides/extended-kalman-filter.md
+      - Particle filter: guides/particle-filter.md
+      - Simulation and evaluation: guides/simulation-and-evaluation.md
+      - Custom models: guides/custom-models.md
+  - Examples:
+      - Overview: examples/index.md
+      - Linear Kalman filter: examples/linear-kalman-filter.md
+      - SE(2) EKF localisation: examples/se2-localisation.md
+      - SE(2) particle localisation: examples/particle-localisation.md
+  - API reference:
+      - Overview: reference/index.md
+      - Beliefs: reference/beliefs.md
+      - State spaces:
+          - Euclidean: reference/spaces/euclidean.md
+          - SE(2): reference/spaces/se2.md
+      - Models:
+          - Linear: reference/models/linear.md
+          - SE(2) motion: reference/models/se2.md
+          - Range-bearing: reference/models/range-bearing.md
+      - Filters:
+          - Extended Kalman filter: reference/filters/ekf.md
+          - Particle filter: reference/filters/particle.md
+      - Simulation: reference/simulation.md
+      - Metrics: reference/metrics.md
+  - Help:
+      - Troubleshooting: help/troubleshooting.md
+      - Platforms and JAX: platforms.md
+  - Project:
+      - Development: development.md
+      - Contributing: https://github.com/unswei/blackwell/blob/main/CONTRIBUTING.md
+      - Interface design: interface-design.md

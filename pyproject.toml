@@ -22,23 +22,29 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed",
 ]
 dependencies = ["jax>=0.6"]
 
 [project.optional-dependencies]
 plot = ["matplotlib>=3.8"]
-docs = ["mkdocs>=1.6", "mkdocstrings[python]>=0.27"]
+docs = [
+  "mkdocs>=1.6",
+  "mkdocs-material>=9.6",
+  "mkdocstrings[python]>=0.27",
+]
 dev = [
   "build>=1.2",
   "matplotlib>=3.8",
   "mkdocs>=1.6",
+  "mkdocs-material>=9.6",
   "mkdocstrings[python]>=0.27",
   "pytest>=8.3",
   "ruff>=0.8",
 ]
 
 [project.urls]
-Documentation = "https://github.com/unswei/blackwell"
+Documentation = "https://unswei.github.io/blackwell/"
 Issues = "https://github.com/unswei/blackwell/issues"
 Source = "https://github.com/unswei/blackwell"
 

@@ -25,6 +25,11 @@ class BootstrapParticleFilter:
     :func:`jax.jit`. The ``step`` method intentionally does not resample; call
     :meth:`systematic_resample` explicitly when the effective sample size calls
     for it.
+
+    Attributes:
+        state_space: Operations providing state retraction.
+        dynamics: Operations providing propagation and process covariance.
+        observation: Operations providing prediction, covariance and residual.
     """
 
     state_space: StateSpaceOperations
@@ -40,7 +45,17 @@ class BootstrapParticleFilter:
     ) -> ParticleBelief:
         """Sample an equally weighted local-tangent particle belief.
 
-        ``particle_count`` must be static when this method is JIT compiled.
+        Args:
+            key: JAX random key used once for all initial samples.
+            mean: Nominal state about which local samples are drawn.
+            covariance: Local Gaussian covariance with shape
+                ``(tangent_dim, tangent_dim)``.
+            particle_count: Number of samples. This value must be static when
+                the method is JIT compiled.
+
+        Returns:
+            Particles retracted onto the state space with uniform normalised
+            weights.
         """
 
         tangent_dimension = covariance.shape[0]
@@ -64,7 +79,17 @@ class BootstrapParticleFilter:
         dynamics_model: object,
         control: Array,
     ) -> ParticleBelief:
-        """Propagate particles through dynamics and sampled local process noise."""
+        """Propagate particles and sample local process noise.
+
+        Args:
+            key: JAX random key used once for process-noise samples.
+            belief: Prior normalised particle belief.
+            dynamics_model: Parameters understood by ``dynamics``.
+            control: Control array shared by every particle.
+
+        Returns:
+            Propagated particles with the prior weights unchanged.
+        """
 
         covariance = jax.vmap(
             lambda state: self.dynamics.process_covariance(
@@ -84,7 +109,21 @@ class BootstrapParticleFilter:
         observation_model: object,
         measurement: Array,
     ) -> ParticleBelief:
-        """Reweight particles from normalised, model-specific log likelihoods."""
+        """Reweight particles from model-specific Gaussian likelihoods.
+
+        Args:
+            belief: Predicted particle belief with finite normalised weights.
+            observation_model: Parameters understood by ``observation``.
+            measurement: Measurement shared by every particle.
+
+        Returns:
+            The same particle states with posterior weights normalised in log
+            space.
+
+        Note:
+            Observation covariance must be positive definite for the linear
+            solve and log determinant used by the Gaussian likelihood.
+        """
 
         residual = jax.vmap(
             lambda state: self.observation.measurement_residual(
@@ -117,7 +156,15 @@ class BootstrapParticleFilter:
         return ParticleBelief(particles=belief.particles, weights=weights)
 
     def systematic_resample(self, key: Array, belief: ParticleBelief) -> ParticleBelief:
-        """Systematically resample particles and reset weights to uniform."""
+        """Systematically resample particles and reset weights to uniform.
+
+        Args:
+            key: JAX random key used once for the systematic offset.
+            belief: Normalised particle belief to resample.
+
+        Returns:
+            A belief with selected particle states and uniform weights.
+        """
 
         particle_count = belief.weights.shape[0]
         offset = jax.random.uniform(key, (), dtype=belief.weights.dtype)
@@ -131,7 +178,15 @@ class BootstrapParticleFilter:
         return ParticleBelief(particles=particles, weights=weights)
 
     def effective_sample_size(self, belief: ParticleBelief) -> Array:
-        """Return the standard effective sample size of a normalised belief."""
+        """Return effective sample size ``1 / sum(weights**2)``.
+
+        Args:
+            belief: Particle belief with normalised weights.
+
+        Returns:
+            Scalar effective sample size in ``[1, particle_count]`` for a valid
+            non-empty belief.
+        """
 
         return 1.0 / jnp.sum(belief.weights**2)
 
@@ -144,7 +199,21 @@ class BootstrapParticleFilter:
         control: Array,
         measurement: Array,
     ) -> ParticleBelief:
-        """Perform bootstrap propagation and weighting without resampling."""
+        """Perform bootstrap propagation and weighting without resampling.
+
+        Args:
+            key: JAX random key for process-noise samples.
+            belief: Prior particle belief.
+            dynamics_model: Parameters understood by ``dynamics``.
+            observation_model: Parameters understood by ``observation``.
+            control: Control shared by every particle.
+            measurement: Measurement shared by every particle.
+
+        Returns:
+            Predicted and reweighted particle belief. Call
+            :meth:`effective_sample_size` and :meth:`systematic_resample`
+            separately to apply an explicit resampling policy.
+        """
 
         return self.update(
             self.predict(key, belief, dynamics_model, control),

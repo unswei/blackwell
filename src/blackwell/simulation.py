@@ -23,6 +23,12 @@ class Simulator:
     samples additive measurement noise in flattened measurement coordinates.
     Periodic observation models should handle equivalent representations in
     their residual operation.
+
+    Attributes:
+        state_space: Operations providing state retraction.
+        dynamics: Operations providing propagation and process covariance.
+        observation: Operations providing measurement prediction and
+            covariance.
     """
 
     state_space: StateSpaceOperations
@@ -37,7 +43,20 @@ class Simulator:
         observation_model: object,
         control: Array,
     ) -> tuple[Array, Array]:
-        """Simulate one noisy state transition and its measurement."""
+        """Simulate one noisy state transition and its measurement.
+
+        Args:
+            key: JAX random key, split once for process and measurement noise.
+            state: Current state array.
+            dynamics_model: Parameters understood by ``dynamics``.
+            observation_model: Parameters understood by ``observation``.
+            control: Control array for this transition.
+
+        Returns:
+            A pair ``(next_state, measurement)``. Process noise is sampled in
+            local tangent coordinates and measurement noise in flattened
+            measurement coordinates.
+        """
 
         process_key, measurement_key = jax.random.split(key)
         propagated = self.dynamics.propagate(state, control, dynamics_model)
@@ -64,7 +83,19 @@ class Simulator:
         observation_model: object,
         controls: Array,
     ) -> tuple[Array, Array]:
-        """Simulate one trajectory with shape-static controls and JAX scan."""
+        """Simulate one trajectory with shape-static controls and JAX scan.
+
+        Args:
+            key: JAX random key for the complete rollout.
+            initial_state: State immediately before the first control.
+            dynamics_model: Parameters understood by ``dynamics``.
+            observation_model: Parameters understood by ``observation``.
+            controls: Control sequence with leading shape ``(step_count,)``.
+
+        Returns:
+            ``(states, measurements)`` with one entry per control. The initial
+            state itself is not included in ``states``.
+        """
 
         keys = jax.random.split(key, controls.shape[0])
 

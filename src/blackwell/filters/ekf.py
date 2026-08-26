@@ -22,6 +22,17 @@ class ExtendedKalmanFilter:
     Capture an instance in a closure or bind one of its methods before applying
     :func:`jax.jit`. Model parameter objects remain function arguments and are
     therefore ordinary dynamic JAX PyTrees.
+
+    Attributes:
+        state_space: Operations providing retraction and covariance transport.
+        dynamics: Operations providing propagation, its tangent Jacobian and
+            process covariance.
+        observation: Operations providing measurement prediction, its tangent
+            Jacobian, covariance and residual.
+
+    Note:
+        Blackwell does not validate model shapes inside compiled kernels. The
+        belief covariance must match the state-space tangent dimension.
     """
 
     state_space: StateSpaceOperations
@@ -34,7 +45,17 @@ class ExtendedKalmanFilter:
         dynamics_model: object,
         control: Array,
     ) -> GaussianBelief:
-        """Apply one tangent-space Gaussian prediction step."""
+        """Apply one tangent-space Gaussian prediction step.
+
+        Args:
+            belief: Prior local Gaussian belief.
+            dynamics_model: Dynamic JAX PyTree understood by ``dynamics``.
+            control: Control array understood by ``dynamics``.
+
+        Returns:
+            Predicted belief. Its mean is propagated through the dynamics and
+            its symmetric covariance is expressed at that predicted mean.
+        """
 
         mean = self.dynamics.propagate(belief.mean, control, dynamics_model)
         transition = self.dynamics.transition_jacobian(
@@ -54,7 +75,23 @@ class ExtendedKalmanFilter:
         observation_model: object,
         measurement: Array,
     ) -> GaussianBelief:
-        """Apply a Joseph-form measurement update in local tangent coordinates."""
+        """Apply a Joseph-form measurement update in tangent coordinates.
+
+        Args:
+            belief: Predicted local Gaussian belief.
+            observation_model: Dynamic JAX PyTree understood by
+                ``observation``.
+            measurement: Measurement array matching the observation family's
+                expected shape.
+
+        Returns:
+            Corrected belief with covariance transported to the corrected
+            mean's tangent coordinates and symmetrised numerically.
+
+        Note:
+            Measurement residual topology belongs to the observation family;
+            for example, range-bearing models wrap angular residuals.
+        """
 
         expected = self.observation.observe(belief.mean, observation_model)
         innovation = self.observation.measurement_residual(
@@ -92,7 +129,18 @@ class ExtendedKalmanFilter:
         control: Array,
         measurement: Array,
     ) -> GaussianBelief:
-        """Apply one prediction followed by one measurement update."""
+        """Apply one prediction followed by one measurement update.
+
+        Args:
+            belief: Prior local Gaussian belief.
+            dynamics_model: Parameters understood by ``dynamics``.
+            observation_model: Parameters understood by ``observation``.
+            control: Control array for the prediction.
+            measurement: Measurement array for the correction.
+
+        Returns:
+            The corrected Gaussian belief.
+        """
 
         return self.update(
             self.predict(belief, dynamics_model, control),
