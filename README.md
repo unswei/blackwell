@@ -1,14 +1,13 @@
 # Blackwell
 
-Blackwell is a small, JAX-native probabilistic robotics library. It will provide
-manifold-aware Gaussian beliefs, weighted particles, common state spaces, an
-extended Kalman filter, a bootstrap particle filter, simulation helpers and
-uncertainty metrics.
+Blackwell is a small, JAX-native probabilistic robotics library. Its pre-alpha
+public API provides manifold-aware Gaussian beliefs, weighted particles,
+Euclidean and SE(2) state spaces, an extended Kalman filter, a bootstrap
+particle filter, simulation helpers and uncertainty metrics.
 
-The project is currently in its interface-spike stage. The package scaffold is
-installable, but the public estimation API is not implemented yet. The first
-experiments will settle the state, model and PyTree interfaces before those APIs
-are published.
+The API emerged from four private interface experiments and is deliberately
+compact. It is ready for hands-on evaluation, but remains pre-1.0: expect the
+package to evolve as additional state spaces and model families are introduced.
 
 ## Design commitments
 
@@ -30,6 +29,7 @@ uv sync --all-extras
 uv run pytest
 uv run ruff check .
 uv run python -m build
+uv run python examples/se2_localisation.py
 ```
 
 GPU-enabled JAX is deliberately not pinned by this project. Install the JAX

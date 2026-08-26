@@ -9,10 +9,10 @@ uv run ruff check .
 uv run python -m build
 ```
 
-The implementation starts with four private experiments: linear Gaussian
-filtering, SE(2) range-bearing EKF localisation, particle localisation using
-the same models, and batched Monte Carlo runs. They resolve the model and
-PyTree details before public inference APIs are added.
+The implementation began with four private experiments: linear Gaussian
+filtering, SE(2) range-bearing EKF localisation, particle localisation using the
+same models, and batched Monte Carlo runs. Their shared interfaces now underpin
+the supported pre-alpha API; the experiments remain as regression references.
 
 The completed linear-Gaussian experiment lives in
 `blackwell._experiments.linear_gaussian`. It keeps the model and Gaussian belief

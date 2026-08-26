@@ -8,6 +8,7 @@ import jax
 import jax.numpy as jnp
 from jax import Array
 
+from blackwell import metrics
 from blackwell._experiments.se2_range_bearing import (
     RangeBearingLocalisationModel,
     SE2Belief,
@@ -107,21 +108,18 @@ def tangent_errors(result: MonteCarloResult) -> Array:
 def position_rmse(result: MonteCarloResult) -> Array:
     """Return per-step position RMSE over the independent trials."""
 
-    squared_position_error = jnp.sum(tangent_errors(result)[..., :2] ** 2, axis=-1)
-    return jnp.sqrt(jnp.mean(squared_position_error, axis=0))
+    return metrics.position_rmse(tangent_errors(result))
 
 
 def normalised_estimation_error_squared(result: MonteCarloResult) -> Array:
     """Return the per-trial, per-step tangent-space NEES values."""
 
-    errors = tangent_errors(result)
-    covariance_inverse_errors = jnp.linalg.solve(
-        result.covariances, errors[..., None]
-    )[..., 0]
-    return jnp.sum(errors * covariance_inverse_errors, axis=-1)
+    return metrics.normalised_estimation_error_squared(
+        tangent_errors(result), result.covariances
+    )
 
 
 def mean_nees(result: MonteCarloResult) -> Array:
     """Return the per-step NEES averaged over all independent trials."""
 
-    return jnp.mean(normalised_estimation_error_squared(result), axis=0)
+    return metrics.mean_nees(tangent_errors(result), result.covariances)
