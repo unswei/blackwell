@@ -80,25 +80,40 @@ particle-filter logic.
 
 ## Filter contract
 
-The supported kernels will live under `blackwell.filters` and take separate
-state-space and model values:
+The supported kernels live under `blackwell.filters`. A filter instance captures
+the state-space and the static operation modules; its methods receive the
+dynamic model parameter values:
 
 ```python
-ekf.predict(belief, state_space, dynamics, control) -> GaussianBelief
-ekf.update(belief, state_space, observation, measurement) -> GaussianBelief
-ekf.step(belief, state_space, dynamics, observation, control, measurement)
+filter = ekf.ExtendedKalmanFilter(
+    state_space=se2,
+    dynamics=se2_motion,
+    observation=range_bearing,
+)
+filter.predict(belief, dynamics_model, control) -> GaussianBelief
+filter.update(belief, observation_model, measurement) -> GaussianBelief
+filter.step(belief, dynamics_model, observation_model, control, measurement)
 
-particle.predict(key, belief, state_space, dynamics, control) -> ParticleBelief
-particle.update(belief, state_space, observation, measurement) -> ParticleBelief
-particle.systematic_resample(key, belief) -> ParticleBelief
+particles = particle.BootstrapParticleFilter(
+    state_space=se2,
+    dynamics=se2_motion,
+    observation=range_bearing,
+)
+particles.predict(key, belief, dynamics_model, control) -> ParticleBelief
+particles.update(belief, observation_model, measurement) -> ParticleBelief
+particles.systematic_resample(key, belief) -> ParticleBelief
 ```
 
+This keeps Python callables outside the dynamic JAX PyTree arguments. To compile
+an operation, bind the method before calling `jax.jit`, for example
+`compiled_step = jax.jit(filter.step)`.
+
 EKF prediction transports the old tangent covariance through the model's
-transition Jacobian. EKF updates retract the correction and use the Joseph
-covariance form. The implementation must account for tangent-coordinate changes
-caused by the correction. Particle filtering applies process noise through the
-dynamics model, combines log likelihoods stably, and treats resampling as an
-explicit operation rather than an unavoidable side effect of every update.
+transition Jacobian. EKF updates retract the correction, use the Joseph
+covariance form, and transport covariance into the corrected tangent coordinate
+system. Particle filtering applies process noise through the dynamics model,
+combines log likelihoods stably, and treats resampling as an explicit operation
+rather than an unavoidable side effect of every update.
 
 ## Public package layout
 
