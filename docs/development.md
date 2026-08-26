@@ -24,3 +24,8 @@ The completed SE(2) range-bearing localisation experiment lives in
 `blackwell._experiments.se2_range_bearing`. Its Gaussian covariance is expressed
 in the nominal pose's local tangent coordinates; it uses explicit SE(2) group
 operations and tests bearing innovations across the angle branch cut.
+
+The completed bootstrap particle-localisation experiment lives in
+`blackwell._experiments.particle_localisation`. It reuses the same SE(2) motion
+and range-bearing model, keeps random keys explicit, and provides systematic
+resampling with an effective-sample-size diagnostic.
