@@ -29,3 +29,7 @@ The completed bootstrap particle-localisation experiment lives in
 `blackwell._experiments.particle_localisation`. It reuses the same SE(2) motion
 and range-bearing model, keeps random keys explicit, and provides systematic
 resampling with an effective-sample-size diagnostic.
+
+The completed batched Monte Carlo experiment lives in
+`blackwell._experiments.monte_carlo`. It runs independent noisy SE(2) EKF trials
+through JAX vectorisation and reports tangent errors, position RMSE, and NEES.
