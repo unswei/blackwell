@@ -2,10 +2,18 @@
 
 ## Installation cannot find a release
 
-Blackwell is not yet published on PyPI. Install the current Git revision:
+Confirm that you are using Python 3.11 or newer and a current installer:
 
 ```console
-python -m pip install "blackwell @ git+https://github.com/unswei/blackwell.git"
+python --version
+python -m pip install --upgrade pip
+python -m pip install blackwell
+```
+
+To test an unreleased fix, install the current Git revision instead:
+
+```console
+python -m pip install "blackwell @ git+https://github.com/unswei/blackwell.git@main"
 ```
 
 For an editable checkout, use `python -m pip install -e .` or `uv sync`.

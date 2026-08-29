@@ -2,6 +2,7 @@
 
 [![Test](https://github.com/unswei/blackwell/actions/workflows/test.yml/badge.svg)](https://github.com/unswei/blackwell/actions/workflows/test.yml)
 [![Documentation](https://github.com/unswei/blackwell/actions/workflows/docs.yml/badge.svg)](https://github.com/unswei/blackwell/actions/workflows/docs.yml)
+[![PyPI](https://img.shields.io/pypi/v/blackwell.svg)](https://pypi.org/project/blackwell/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/)
 [![Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue)](LICENSE)
 
@@ -25,11 +26,10 @@ This repository retains its source documentation for local validation.
 
 ## Install
 
-Blackwell requires Python 3.11 or newer and is not yet on PyPI. Install the
-current Git revision:
+Blackwell requires Python 3.11 or newer. Install the latest release from PyPI:
 
 ```console
-python -m pip install "blackwell @ git+https://github.com/unswei/blackwell.git"
+python -m pip install blackwell
 ```
 
 Accelerator-specific JAX packages are intentionally not pinned. See the

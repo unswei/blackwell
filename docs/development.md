@@ -62,6 +62,8 @@ use the modules documented in the [API reference](reference/index.md).
 
 ## Release state
 
-The package currently reports version `0.0.0` and is installed from GitHub.
-A public release should define a versioning and compatibility policy, publish
-wheel and source distributions, and add release notes before PyPI publication.
+The current public release is `0.0.1`. Releases use semantic versioning, with
+API stability expected only from version 1.0 onwards. Each release is built as
+a wheel and source distribution, verified in a clean environment, published to
+PyPI through GitHub Actions Trusted Publishing, and documented in the
+[changelog](https://github.com/unswei/blackwell/blob/main/CHANGELOG.md).

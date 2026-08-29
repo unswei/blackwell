@@ -4,17 +4,17 @@ build-backend = "hatchling.build"
 
 [project]
 name = "blackwell"
-version = "0.0.0"
+version = "0.0.1"
 description = "JAX-native probabilistic robotics"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [{ name = "Blackwell contributors" }]
 keywords = ["jax", "probabilistic-robotics", "robotics", "state-estimation"]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
@@ -47,6 +47,7 @@ dev = [
 Documentation = "https://unswei.github.io/blackwell/"
 Issues = "https://github.com/unswei/blackwell/issues"
 Source = "https://github.com/unswei/blackwell"
+Changelog = "https://github.com/unswei/blackwell/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/blackwell"]
