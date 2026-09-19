@@ -9,6 +9,7 @@ dependencies and uses only Blackwell's public API.
 | [Linear Kalman filter](linear-kalman-filter.md) | Euclidean model, `jax.lax.scan` | `uv run python examples/linear_kalman_filter.py` |
 | [SE(2) EKF localisation](se2-localisation.md) | Simulation, manifold EKF, RMSE and NEES | `uv run python examples/se2_localisation.py` |
 | [SE(2) particle localisation](particle-localisation.md) | Weighted particles, ESS and resampling | `uv run python examples/particle_localisation.py` |
+| [SE(3) uncertainty](se3-uncertainty.md) | Correlated transform/point propagation and Monte Carlo | `uv run python examples/se3_uncertainty.py` |
 
 Clone the repository and install all extras to reproduce figures:
 

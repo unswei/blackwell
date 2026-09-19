@@ -79,10 +79,11 @@ jobs:
               "import blackwell; print(blackwell.__version__)"
           )
           test "$actual_version" = "$expected_version"
-      - name: Run tests and five-minute example against the wheel
+      - name: Run tests and examples against the wheel
         run: |
           .release-venv/bin/python -m pytest
           .release-venv/bin/python examples/quickstart.py
+          .release-venv/bin/python examples/se3_uncertainty.py
 
   publish:
     name: Publish to PyPI

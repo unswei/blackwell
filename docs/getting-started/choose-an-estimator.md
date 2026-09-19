@@ -12,6 +12,10 @@ particle filter. Both use the same state spaces and model families.
 | Differentiable/JIT | Yes, subject to model operations | Yes; resampling is discrete |
 | Current support | Linear and SE(2) range-bearing | SE(2) range-bearing and compatible custom models |
 
+SE(3) geometry and correlated transform/point uncertainty propagation are
+available from 0.0.2. Both filters accept `se3` with compatible custom dynamics
+and observation families. See the [SE(3) example](../examples/se3-uncertainty.md).
+
 ## Start with the EKF when
 
 - your posterior should remain close to one mode;
@@ -28,7 +32,7 @@ particle filter. Both use the same state spaces and model families.
 
 !!! note "What Blackwell does not provide yet"
 
-    There is no SE(3), unscented Kalman filter, SLAM state augmentation,
+    There is no built-in IMU model, unscented Kalman filter, SLAM state augmentation,
     data-association layer, smoothing, or production sensor integration yet.
     Blackwell is currently strongest as a small JAX-native estimation core and
     research/teaching scaffold.

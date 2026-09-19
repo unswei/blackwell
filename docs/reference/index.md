@@ -8,7 +8,7 @@ values.
 | Area | Public modules |
 | --- | --- |
 | Beliefs | [`blackwell.beliefs`](beliefs.md) |
-| State spaces | [`euclidean`](spaces/euclidean.md), [`se2`](spaces/se2.md) |
+| State spaces | [`euclidean`](spaces/euclidean.md), [`se2`](spaces/se2.md), [`se3`](spaces/se3.md) |
 | Models | [`linear`](models/linear.md), [`se2`](models/se2.md), [`range_bearing`](models/range-bearing.md) |
 | Filters | [`ekf`](filters/ekf.md), [`particle`](filters/particle.md) |
 | Experiment support | [`simulation`](simulation.md), [`metrics`](metrics.md) |

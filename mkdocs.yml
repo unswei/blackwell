@@ -132,12 +132,14 @@ nav:
       - Linear Kalman filter: examples/linear-kalman-filter.md
       - SE(2) EKF localisation: examples/se2-localisation.md
       - SE(2) particle localisation: examples/particle-localisation.md
+      - SE(3) uncertainty propagation: examples/se3-uncertainty.md
   - API reference:
       - Overview: reference/index.md
       - Beliefs: reference/beliefs.md
       - State spaces:
           - Euclidean: reference/spaces/euclidean.md
           - SE(2): reference/spaces/se2.md
+          - SE(3): reference/spaces/se3.md
       - Models:
           - Linear: reference/models/linear.md
           - SE(2) motion: reference/models/se2.md
@@ -152,5 +154,6 @@ nav:
       - Platforms and JAX: platforms.md
   - Project:
       - Development: development.md
+      - Roadmap and release scope: roadmap.md
       - Contributing: https://github.com/unswei/blackwell/blob/main/CONTRIBUTING.md
       - Interface design: interface-design.md
