@@ -27,7 +27,7 @@ for branch, testing and documentation expectations.
 ```text
 src/blackwell/
   beliefs.py           immutable Gaussian and particle containers
-  spaces/              Euclidean and SE(2) geometry
+  spaces/              Euclidean, SE(2) and SE(3) geometry
   models/              dynamics and observation families
   filters/             EKF and bootstrap particle inference
   simulation.py        reproducible model rollouts
@@ -62,7 +62,9 @@ use the modules documented in the [API reference](reference/index.md).
 
 ## Release state
 
-The current public release is `0.0.1`. Releases use semantic versioning, with
+The current release is `0.0.2`, adding SE(3) to the `0.0.1` API.
+See the [roadmap comparison and release checks](roadmap.md) for its scope.
+Releases use semantic versioning, with
 API stability expected only from version 1.0 onwards. Each release is built as
 a wheel and source distribution, verified in a clean environment, published to
 PyPI through GitHub Actions Trusted Publishing, and documented in the

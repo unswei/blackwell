@@ -4,7 +4,7 @@ title: "Blackwell"
 type: software
 authors:
   - name: "Blackwell contributors"
-version: 0.0.1
-date-released: 2026-08-29
+version: 0.0.2
+date-released: 2026-09-20
 repository-code: "https://github.com/unswei/blackwell"
 license: Apache-2.0

@@ -40,4 +40,5 @@ jobs:
           python examples/linear_kalman_filter.py
           python examples/se2_localisation.py
           python examples/particle_localisation.py
+          python examples/se3_uncertainty.py
       - run: mkdocs build --strict

@@ -7,13 +7,13 @@
 [![Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue)](LICENSE)
 
 Blackwell is a compact, JAX-native probabilistic-robotics library. It provides
-manifold-aware Gaussian beliefs, weighted particles, Euclidean and SE(2) state
+manifold-aware Gaussian beliefs, weighted particles, Euclidean, SE(2) and SE(3) state
 spaces, an extended Kalman filter, a bootstrap particle filter, reproducible
 simulation and uncertainty metrics.
 
-It is useful today for planar localisation, linear state estimation and
-estimator research, while remaining deliberately pre-alpha: expect API changes
-before version 1.0.
+It is useful today for planar localisation, 3D transform uncertainty, linear state
+estimation and estimator research, while remaining deliberately pre-alpha:
+expect API changes before version 1.0.
 
 **[Documentation](https://unswei.github.io/blackwell/)** ·
 **[Five-minute localisation](https://unswei.github.io/blackwell/getting-started/quickstart/)** ·
@@ -73,19 +73,25 @@ print(belief.mean)
 SE(2) states are `[x, y, heading]`; controls and covariance use local
 body-frame tangent coordinates `[forward, lateral, turn]`.
 
+SE(3) states are `[x, y, z, qx, qy, qz, qw]`, with a scalar-last Hamilton
+quaternion. Their covariance uses six body-frame coordinates: translation
+`rho` followed by rotation vector `phi`. See the
+[SE(3) uncertainty example](https://unswei.github.io/blackwell/examples/se3-uncertainty/) for composition,
+inversion and point transformation with correlated inputs.
+
 ## What is included?
 
-- Euclidean and right-retraction SE(2) state spaces
+- Euclidean and right-retraction SE(2)/SE(3) state spaces
 - Linear dynamics and observations
 - SE(2) body-motion and known-landmark range-bearing models
 - Manifold-aware extended Kalman filtering
 - Bootstrap particle filtering with explicit ESS and systematic resampling
 - Reproducible trajectory simulation
 - RMSE, planar position RMSE and NEES metrics
-- Runnable linear, SE(2) EKF and particle-localisation examples
+- Runnable linear, SE(2) EKF, particle-localisation and correlated SE(3) examples
 
-Blackwell does not yet include SE(3), smoothing, SLAM state augmentation,
-data association, sensor drivers or production persistence. See
+Blackwell does not yet include built-in IMU models, smoothing, SLAM state
+augmentation, data association, sensor drivers or production persistence. See
 [Choose an estimator](https://unswei.github.io/blackwell/getting-started/choose-an-estimator/)
 for the current fit and limits.
 
@@ -106,6 +112,7 @@ cd blackwell
 uv sync --all-extras
 uv run python examples/quickstart.py
 uv run python examples/linear_kalman_filter.py
+uv run python examples/se3_uncertainty.py
 uv run python examples/se2_localisation.py --plot localisation.png
 uv run python examples/particle_localisation.py --plot particles.png
 ```

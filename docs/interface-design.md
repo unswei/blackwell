@@ -28,7 +28,9 @@ For SE(2), Blackwell uses a right/body-frame retraction. The state is
 `[x, y, heading]`, while its tangent is `[forward, lateral, turn]`.
 
 Filters therefore do not special-case angle wrapping or a particular manifold.
-Future state spaces can satisfy the same small contract.
+SE(3) satisfies the same contract with a `(7,)` pose in
+`[x, y, z, qx, qy, qz, qw]` order and a `(6,)` body tangent `[rho, phi]`.
+The stored quaternion is not part of the covariance coordinate system.
 
 ## Models own uncertainty
 
@@ -68,7 +70,7 @@ compatible custom model families.
 ```text
 blackwell/
   beliefs.py
-  spaces/{euclidean,se2}.py
+  spaces/{euclidean,se2,se3}.py
   models/{linear,se2,range_bearing}.py
   filters/{ekf,particle}.py
   simulation.py

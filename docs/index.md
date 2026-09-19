@@ -15,7 +15,7 @@
 </div>
 
 <div class="bw-facts" markdown>
-  <div class="bw-fact"><strong>SE(2)-native</strong>Covariance lives in local tangent coordinates.</div>
+  <div class="bw-fact"><strong>SE(2) and SE(3)</strong>Covariance lives in local tangent coordinates.</div>
   <div class="bw-fact"><strong>Transform-ready</strong>Pure kernels compose with JAX transformations.</div>
   <div class="bw-fact"><strong>Two estimators</strong>Extended Kalman and bootstrap particle filters.</div>
   <div class="bw-fact"><strong>Evaluation built in</strong>Simulation, RMSE and NEES are public APIs.</div>
@@ -61,6 +61,10 @@
     [:octicons-arrow-right-24: Simulation and evaluation](guides/simulation-and-evaluation.md)
 
 </div>
+
+For uncertain 3D transforms and points, start with the
+[SE(3) uncertainty example](examples/se3-uncertainty.md), including correlated
+inputs and a Monte Carlo comparison.
 
 ## A first estimate
 

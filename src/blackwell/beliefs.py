@@ -16,10 +16,13 @@ class GaussianBelief(NamedTuple):
 
     Attributes:
         mean: State array in the accompanying state space. For SE(2), this is
-            ``[x, y, heading]`` with shape ``(3,)``.
+            ``[x, y, heading]`` with shape ``(3,)``. For SE(3), this is
+            ``[x, y, z, qx, qy, qz, qw]`` with shape ``(7,)``.
         covariance: Symmetric local covariance with shape
             ``(tangent_dim, tangent_dim)`` at ``mean``. For SE(2), its axes are
-            body-frame ``[forward, lateral, turn]``.
+            body-frame ``[forward, lateral, turn]``. For SE(3), they are
+            body-frame ``[rho_x, rho_y, rho_z, phi_x, phi_y, phi_z]`` and
+            the covariance has shape ``(6, 6)``.
     """
 
     mean: Array
