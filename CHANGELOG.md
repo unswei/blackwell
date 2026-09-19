@@ -4,7 +4,7 @@ All notable changes to Blackwell are documented here. Blackwell follows
 [Semantic Versioning](https://semver.org/), with no API compatibility guarantee
 before version 1.0.
 
-## [0.0.2] - Unreleased
+## [0.0.2] - 2026-09-20
 
 ### Added
 
@@ -37,4 +37,4 @@ First public release.
 
 [0.0.1]: https://github.com/unswei/blackwell/releases/tag/v0.0.1
 
-[0.0.2]: https://github.com/unswei/blackwell/compare/v0.0.1...v0.0.2
+[0.0.2]: https://github.com/unswei/blackwell/releases/tag/v0.0.2

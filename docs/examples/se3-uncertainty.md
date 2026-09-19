@@ -6,7 +6,7 @@ Compose uncertain transforms, invert them, and transform uncertain 3D points:
 uv run python examples/se3_uncertainty.py
 ```
 
-This example needs Blackwell 0.0.2 or its source checkout. It uses only public
+This example needs Blackwell 0.0.2 or newer. It uses only public
 operations and prints a reproducible Monte Carlo comparison without plotting
 dependencies. Read the [encoding and frame conventions](../reference/spaces/se3.md)
 before adapting it to a sensor or calibration problem.

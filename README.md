@@ -76,7 +76,7 @@ body-frame tangent coordinates `[forward, lateral, turn]`.
 SE(3) states are `[x, y, z, qx, qy, qz, qw]`, with a scalar-last Hamilton
 quaternion. Their covariance uses six body-frame coordinates: translation
 `rho` followed by rotation vector `phi`. See the
-[SE(3) uncertainty example](docs/examples/se3-uncertainty.md) for composition,
+[SE(3) uncertainty example](https://unswei.github.io/blackwell/examples/se3-uncertainty/) for composition,
 inversion and point transformation with correlated inputs.
 
 ## What is included?

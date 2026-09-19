@@ -62,7 +62,7 @@ use the modules documented in the [API reference](reference/index.md).
 
 ## Release state
 
-This checkout prepares `0.0.2`, adding SE(3) to the published `0.0.1` API.
+The current release is `0.0.2`, adding SE(3) to the `0.0.1` API.
 See the [roadmap comparison and release checks](roadmap.md) for its scope.
 Releases use semantic versioning, with
 API stability expected only from version 1.0 onwards. Each release is built as

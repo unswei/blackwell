@@ -4,7 +4,7 @@
 
 The 26 August 2026 *Blackwell v0.1: Minimal Useful Library Specification*
 defines a broader milestone than the first published version, 0.0.1. The
-next release, **0.0.2**, adds SE(3) geometry and uncertainty propagation as a
+**0.0.2 release** adds SE(3) geometry and uncertainty propagation as a
 focused step towards that milestone. It does not declare the full v0.1
 acceptance criteria complete.
 
@@ -47,7 +47,7 @@ IMU models beyond a single rigid transform. SE(3) is a foundation for that
 work, not a completed inertial-estimation subsystem. Smoothing, factor graphs,
 ROS integration and planning remain outside this release.
 
-## 0.0.2 release checks
+## 0.0.2 release validation
 
 Local validation on 20 September 2026 used macOS ARM CPU and Python 3.12.13:
 
@@ -72,11 +72,17 @@ uv run python -m build
 uv run mkdocs build --strict
 ```
 
-Before tagging, review the changes, confirm the Linux/macOS CI checks, set the
-release date in the changelog and `CITATION.cff`, and verify the built wheel in
-a clean environment. The release workflow tests the installed wheel and both
+For each release, review the changes, confirm the Linux/macOS CI checks, set
+the release date in the changelog and `CITATION.cff`, and verify the built wheel
+in a clean environment. The release workflow tests the installed wheel and both
 examples before PyPI publication. A pushed `v0.0.2` tag triggers publication;
 building locally does not publish anything.
+
+The live manual is maintained in `unswei/unswei.github.io` under
+`content/blackwell/`. Update its guides, API pages and release information as
+part of each release, build it with Hugo and run `scripts/check-local-links.py`
+before deploying through its GitHub Pages workflow. Blackwell's MkDocs workflow
+validates source documentation; it does not publish the live manual.
 
 The local CPU checks do not establish GPU or Jetson validation. The existing
 [platform policy](platforms.md) continues to apply. The broader platform gates

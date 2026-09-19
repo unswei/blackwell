@@ -20,7 +20,7 @@ Verify the installation:
 python -c "import blackwell; print(blackwell.__version__)"
 ```
 
-SE(3) requires version `0.0.2` or the source checkout containing that change;
+The current release is `0.0.2`, which adds SE(3);
 the earlier `0.0.1` release provides Euclidean and SE(2) geometry. Blackwell remains
 pre-alpha: the supported surface is deliberately small, and API changes are
 possible before version 1.0.
