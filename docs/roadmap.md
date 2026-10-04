@@ -75,7 +75,8 @@ uv run mkdocs build --strict
 For each release, review the changes, confirm the Linux/macOS CI checks, set
 the release date in the changelog and `CITATION.cff`, and verify the built wheel
 in a clean environment. The release workflow tests the installed wheel and both
-examples before PyPI publication. A pushed `v0.0.2` tag triggers publication;
+examples on Python 3.10–3.13 before PyPI publication. A pushed version tag
+such as `v0.0.3` triggers publication;
 building locally does not publish anything.
 
 The live manual is maintained in `unswei/unswei.github.io` under

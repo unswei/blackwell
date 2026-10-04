@@ -32,7 +32,10 @@ uv run python -m build
 uv run mkdocs build --strict
 ```
 
-The continuous-integration matrix runs Linux/Python 3.11 and macOS/Python 3.13.
+The continuous-integration matrix runs Linux/Python 3.10, 3.11 and 3.12, and
+macOS/Python 3.13. Use `uv sync --locked --all-extras --python 3.10` to check
+the oldest supported interpreter locally; the lockfile selects its compatible
+JAX version separately from newer Python versions.
 Documentation changes are built strictly on pull requests; build them locally
 before opening one.
 

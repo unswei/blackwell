@@ -4,6 +4,24 @@ All notable changes to Blackwell are documented here. Blackwell follows
 [Semantic Versioning](https://semver.org/), with no API compatibility guarantee
 before version 1.0.
 
+## [0.0.3] - 2026-10-04
+
+### Added
+
+- Official Python 3.10 support, including package metadata, Ruff configuration,
+  installation guidance and Linux CI coverage.
+- Clean-wheel release verification on Python 3.10, 3.11, 3.12 and 3.13 before
+  publication to PyPI, plus Linux/Python 3.12 coverage in the test matrix.
+
+### Changed
+
+- Regenerated the universal lockfile to select JAX 0.6.2 on Python 3.10 while
+  retaining newer compatible JAX releases on newer Python versions.
+- Kept the runtime requirement at `jax>=0.6`, allowing installers to choose
+  versions using JAX's Python compatibility metadata.
+
+The public API remains compatible with 0.0.2.
+
 ## [0.0.2] - 2026-09-20
 
 ### Added
@@ -38,3 +56,4 @@ First public release.
 [0.0.1]: https://github.com/unswei/blackwell/releases/tag/v0.0.1
 
 [0.0.2]: https://github.com/unswei/blackwell/releases/tag/v0.0.2
+[0.0.3]: https://github.com/unswei/blackwell/releases/tag/v0.0.3
