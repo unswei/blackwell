@@ -2,7 +2,7 @@
 
 ## Installation cannot find a release
 
-Confirm that you are using Python 3.11 or newer and a current installer:
+Confirm that you are using Python 3.10 or newer and a current installer:
 
 ```console
 python --version

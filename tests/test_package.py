@@ -4,4 +4,4 @@ import blackwell
 
 
 def test_package_exposes_a_version() -> None:
-    assert blackwell.__version__ == "0.0.2"
+    assert blackwell.__version__ == "0.0.3"

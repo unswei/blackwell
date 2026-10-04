@@ -3,7 +3,7 @@
 [![Test](https://github.com/unswei/blackwell/actions/workflows/test.yml/badge.svg)](https://github.com/unswei/blackwell/actions/workflows/test.yml)
 [![Documentation](https://github.com/unswei/blackwell/actions/workflows/docs.yml/badge.svg)](https://github.com/unswei/blackwell/actions/workflows/docs.yml)
 [![PyPI](https://img.shields.io/pypi/v/blackwell.svg)](https://pypi.org/project/blackwell/)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB)](https://www.python.org/)
 [![Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue)](LICENSE)
 
 Blackwell is a compact, JAX-native probabilistic-robotics library. It provides
@@ -25,11 +25,16 @@ runnable examples and the complete API reference.
 
 ## Install
 
-Blackwell requires Python 3.11 or newer. Install the latest release from PyPI:
+Blackwell requires Python 3.10 or newer. Install the latest release from PyPI:
 
 ```console
 python -m pip install blackwell
 ```
+
+Blackwell requires `jax>=0.6`. Python 3.10 selects JAX 0.6.2; newer Python
+versions select newer compatible JAX releases. The installer uses the Python
+interpreter running the command. To use Python 3.11 explicitly, run
+`python3.11 -m pip install --upgrade blackwell jax`.
 
 Accelerator-specific JAX packages are intentionally not pinned. See the
 [installation guide](https://unswei.github.io/blackwell/getting-started/installation/)

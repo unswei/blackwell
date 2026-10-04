@@ -51,16 +51,20 @@ jobs:
           if-no-files-found: error
 
   verify:
-    name: Verify wheel in a clean environment
+    name: Verify wheel / Python ${{ matrix.python }}
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python }}
       - name: Download distributions
         uses: actions/download-artifact@v6
         with:
@@ -71,6 +75,8 @@ jobs:
           python -m venv .release-venv
           .release-venv/bin/python -m pip install --upgrade pip
           .release-venv/bin/python -m pip install dist/*.whl pytest
+      - name: Report Python and JAX versions
+        run: .release-venv/bin/python -c "import sys, jax; print(sys.version); print('JAX', jax.__version__)"
       - name: Verify installed version
         run: |
           expected_version="${GITHUB_REF_NAME#v}"
