@@ -72,6 +72,21 @@ meaningful consistency check:
 4. compare against chi-squared confidence bounds appropriate to the sample
    count and tangent dimension.
 
+## Evaluate decisions alongside prediction accuracy
+
+Use the same initial states, tasks and candidate banks to check whether model
+errors change selections, constraint decisions or completion forecasts.
+`metrics.selection_regret` evaluates the caller's selected index against the
+observed feasible bank; `metrics.binary_decision_counts` retains confusion
+counts, denominators and missing-label flags. Cost and constraint observation
+masks are separate, so an early collision can be labelled without inventing
+an unobserved final cost.
+
+The [decision-relevant evaluation guide](decision-relevant-evaluation.md)
+includes a runnable planar example, sustained sampled completion checks and
+paired execution outcomes. It demonstrates both a lower-RMSE model making a
+worse decision and forecast errors leaving the chosen action unchanged.
+
 ## Move from simulation to sensors
 
 Keep the estimator code unchanged and replace only the source of controls and

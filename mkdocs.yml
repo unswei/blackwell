@@ -127,6 +127,7 @@ nav:
       - Particle filter: guides/particle-filter.md
       - Simulation and evaluation: guides/simulation-and-evaluation.md
       - Reuse linear predictions: guides/linear-prediction.md
+      - Decision-relevant model evaluation: guides/decision-relevant-evaluation.md
       - Custom models: guides/custom-models.md
   - Examples:
       - Overview: examples/index.md

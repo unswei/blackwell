@@ -73,6 +73,16 @@ Neither filter owns landmarks, model covariances or a particular state
 representation. This makes the same inference kernel usable for built-in and
 compatible custom model families.
 
+## Metrics consume outcomes
+
+Evaluation operates on arrays rather than owning a model, selector or simulator.
+The decision metrics handle one fixed-capacity candidate bank per call and
+return immutable PyTrees with observation and defined flags. Experiments own
+costs, acceptance criteria and the selected index. Completion extraction and
+paired study summaries remain in the runnable example until shared use cases
+justify a library interface. See
+[decision-relevant model evaluation](guides/decision-relevant-evaluation.md).
+
 ## Supported public surface
 
 ```text

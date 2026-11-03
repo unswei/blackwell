@@ -8,6 +8,13 @@ before version 1.0.
 
 ### Added
 
+- `blackwell.metrics.selection_regret` and `binary_decision_counts`, with
+  immutable results, separate observation masks, stable ties, explicit
+  availability flags and conditional error-rate denominators.
+- A decision-relevant model evaluation guide and reproducible planar example
+  comparing prediction RMSE, finite-bank regret, constraint decisions,
+  completion windows and paired open-loop execution. Physical failure and
+  censoring remain separate from undefined numerical summaries.
 - `blackwell.models.linear.PredictionResponse`, `prepare_prediction` and
   `predict_sequence` for reusable finite-horizon conditional mean outputs,
   optional affine offsets and exact state/input sensitivities.

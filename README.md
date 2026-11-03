@@ -94,6 +94,7 @@ inversion and point transformation with correlated inputs.
 - Bootstrap particle filtering with explicit ESS and systematic resampling
 - Reproducible trajectory simulation
 - RMSE, planar position RMSE and NEES metrics
+- Finite-candidate selection regret and observed binary decision counts
 - Runnable linear, SE(2) EKF, particle-localisation and correlated SE(3) examples
 
 Blackwell does not yet include built-in IMU models, smoothing, SLAM state
@@ -119,6 +120,7 @@ uv sync --all-extras
 uv run python examples/quickstart.py
 uv run python examples/linear_kalman_filter.py
 uv run python examples/linear_prediction.py
+uv run python examples/decision_relevant_model_evaluation.py
 uv run python examples/se3_uncertainty.py
 uv run python examples/se2_localisation.py --plot localisation.png
 uv run python examples/particle_localisation.py --plot particles.png
