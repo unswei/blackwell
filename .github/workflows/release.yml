@@ -90,6 +90,8 @@ jobs:
           .release-venv/bin/python -m pytest
           .release-venv/bin/python examples/quickstart.py
           .release-venv/bin/python examples/se3_uncertainty.py
+          .release-venv/bin/python examples/linear_prediction.py
+          .release-venv/bin/python examples/decision_relevant_model_evaluation.py
 
   publish:
     name: Publish to PyPI

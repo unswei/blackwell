@@ -76,7 +76,8 @@ use the modules documented in the [API reference](reference/index.md).
 
 ## Release state
 
-The current release is `0.0.3`, adding Python 3.10 support to the `0.0.2` SE(3) API.
+The current release is `0.0.4`, adding reusable linear predictions and
+decision-relevant model evaluation to the existing estimation API.
 See the [roadmap comparison and release checks](roadmap.md) for its scope.
 Releases use semantic versioning, with
 API stability expected only from version 1.0 onwards. Each release is built as

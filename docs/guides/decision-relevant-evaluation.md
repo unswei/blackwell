@@ -11,7 +11,7 @@ immutable `NamedTuple` PyTrees. Your experiment owns rollouts, objectives,
 constraints and the selection rule. Timing extraction and paired reporting
 remain example code, where their task assumptions can be inspected.
 
-These additions are currently unreleased. From a development checkout, run:
+These APIs require Blackwell 0.0.4 or newer. From a development checkout, run:
 
 ```console
 uv run python examples/decision_relevant_model_evaluation.py

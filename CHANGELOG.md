@@ -4,7 +4,7 @@ All notable changes to Blackwell are documented here. Blackwell follows
 [Semantic Versioning](https://semver.org/), with no API compatibility guarantee
 before version 1.0.
 
-## [Unreleased]
+## [0.0.4] - 2026-11-03
 
 ### Added
 
@@ -23,6 +23,10 @@ before version 1.0.
 - A linear prediction guide, runnable example and reproducible benchmark
   separating preparation/compilation from warmed prediction and gradients,
   with storage, buffer estimates and preparation break-even counts.
+
+Existing model, belief and filter APIs remain compatible with 0.0.3. The new
+operations stay in `blackwell.models.linear` and `blackwell.metrics`; package-root
+exports and runtime dependencies are unchanged.
 
 ## [0.0.3] - 2026-10-04
 
@@ -77,3 +81,4 @@ First public release.
 
 [0.0.2]: https://github.com/unswei/blackwell/releases/tag/v0.0.2
 [0.0.3]: https://github.com/unswei/blackwell/releases/tag/v0.0.3
+[0.0.4]: https://github.com/unswei/blackwell/releases/tag/v0.0.4

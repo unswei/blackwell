@@ -20,7 +20,8 @@ Verify the installation:
 python -c "import blackwell; print(blackwell.__version__)"
 ```
 
-The current release is `0.0.3`, which adds Python 3.10 support to `0.0.2`'s SE(3) API;
+The current release is `0.0.4`, adding reusable linear predictions and
+decision-relevant evaluation alongside the existing SE(3) API and Python 3.10 support;
 the earlier `0.0.1` release provides Euclidean and SE(2) geometry. Blackwell remains
 pre-alpha: the supported surface is deliberately small, and API changes are
 possible before version 1.0.

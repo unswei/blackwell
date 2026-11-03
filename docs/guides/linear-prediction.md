@@ -1,5 +1,7 @@
 # Reuse linear predictions
 
+These APIs require Blackwell 0.0.4 or newer.
+
 Use a prepared response when comparing many future input sequences against
 the same linear dynamics and horizon. Preparation builds the response once;
 prediction then uses matrix products for each initial state and input
