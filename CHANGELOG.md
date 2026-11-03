@@ -4,6 +4,19 @@ All notable changes to Blackwell are documented here. Blackwell follows
 [Semantic Versioning](https://semver.org/), with no API compatibility guarantee
 before version 1.0.
 
+## [Unreleased]
+
+### Added
+
+- `blackwell.models.linear.PredictionResponse`, `prepare_prediction` and
+  `predict_sequence` for reusable finite-horizon conditional mean outputs,
+  optional affine offsets and exact state/input sensitivities.
+- Float32/float64 scan-reference, Jacobian, JIT, batching and model-gradient
+  checks, plus public shape validation without new package-root exports.
+- A linear prediction guide, runnable example and reproducible benchmark
+  separating preparation/compilation from warmed prediction and gradients,
+  with storage, buffer estimates and preparation break-even counts.
+
 ## [0.0.3] - 2026-10-04
 
 ### Added

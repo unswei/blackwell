@@ -35,6 +35,7 @@ src/blackwell/
   _experiments/        private regression/reference implementations
 examples/              runnable public-API workflows
 tests/                 numerical and transformation tests
+benchmarks/            explicit compilation and execution measurements
 docs/                  task guides, concepts and reference page sources
 ```
 
@@ -51,6 +52,19 @@ rejects broken internal links, invalid snippets and documentation warnings.
 The API reference is generated with mkdocstrings from public source docstrings.
 Put exact arguments, returns, shapes and edge cases in the source; put task
 context and complete workflows in the guides.
+
+## Linear prediction benchmark
+
+```console
+uv run python benchmarks/linear_prediction.py --horizon 32 --batch-size 256
+```
+
+This compares prepared matrix products and a batched scan for the same affine
+outputs and scalar-objective gradients. Preparation, compilation and warmed
+execution are measured separately. The JSON report includes response storage,
+XLA buffer estimates and batch counts needed to amortise preparation. See
+[Reuse linear predictions](guides/linear-prediction.md#choose-between-preparation-and-scanning)
+for interpretation and limits.
 
 ## Private experiments
 

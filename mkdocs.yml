@@ -126,6 +126,7 @@ nav:
       - Extended Kalman filter: guides/extended-kalman-filter.md
       - Particle filter: guides/particle-filter.md
       - Simulation and evaluation: guides/simulation-and-evaluation.md
+      - Reuse linear predictions: guides/linear-prediction.md
       - Custom models: guides/custom-models.md
   - Examples:
       - Overview: examples/index.md
