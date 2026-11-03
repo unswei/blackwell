@@ -35,6 +35,7 @@ src/blackwell/
   _experiments/        private regression/reference implementations
 examples/              runnable public-API workflows
 tests/                 numerical and transformation tests
+benchmarks/            explicit compilation and execution measurements
 docs/                  task guides, concepts and reference page sources
 ```
 
@@ -52,6 +53,19 @@ The API reference is generated with mkdocstrings from public source docstrings.
 Put exact arguments, returns, shapes and edge cases in the source; put task
 context and complete workflows in the guides.
 
+## Linear prediction benchmark
+
+```console
+uv run python benchmarks/linear_prediction.py --horizon 32 --batch-size 256
+```
+
+This compares prepared matrix products and a batched scan for the same affine
+outputs and scalar-objective gradients. Preparation, compilation and warmed
+execution are measured separately. The JSON report includes response storage,
+XLA buffer estimates and batch counts needed to amortise preparation. See
+[Reuse linear predictions](guides/linear-prediction.md#choose-between-preparation-and-scanning)
+for interpretation and limits.
+
 ## Private experiments
 
 The implementation began with four private experiments: linear Gaussian
@@ -62,7 +76,8 @@ use the modules documented in the [API reference](reference/index.md).
 
 ## Release state
 
-The current release is `0.0.3`, adding Python 3.10 support to the `0.0.2` SE(3) API.
+The current release is `0.0.4`, adding reusable linear predictions and
+decision-relevant model evaluation to the existing estimation API.
 See the [roadmap comparison and release checks](roadmap.md) for its scope.
 Releases use semantic versioning, with
 API stability expected only from version 1.0 onwards. Each release is built as

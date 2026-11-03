@@ -4,6 +4,30 @@ All notable changes to Blackwell are documented here. Blackwell follows
 [Semantic Versioning](https://semver.org/), with no API compatibility guarantee
 before version 1.0.
 
+## [0.0.4] - 2026-11-03
+
+### Added
+
+- `blackwell.metrics.selection_regret` and `binary_decision_counts`, with
+  immutable results, separate observation masks, stable ties, explicit
+  availability flags and conditional error-rate denominators.
+- A decision-relevant model evaluation guide and reproducible planar example
+  comparing prediction RMSE, finite-bank regret, constraint decisions,
+  completion windows and paired open-loop execution. Physical failure and
+  censoring remain separate from undefined numerical summaries.
+- `blackwell.models.linear.PredictionResponse`, `prepare_prediction` and
+  `predict_sequence` for reusable finite-horizon conditional mean outputs,
+  optional affine offsets and exact state/input sensitivities.
+- Float32/float64 scan-reference, Jacobian, JIT, batching and model-gradient
+  checks, plus public shape validation without new package-root exports.
+- A linear prediction guide, runnable example and reproducible benchmark
+  separating preparation/compilation from warmed prediction and gradients,
+  with storage, buffer estimates and preparation break-even counts.
+
+Existing model, belief and filter APIs remain compatible with 0.0.3. The new
+operations stay in `blackwell.models.linear` and `blackwell.metrics`; package-root
+exports and runtime dependencies are unchanged.
+
 ## [0.0.3] - 2026-10-04
 
 ### Added
@@ -57,3 +81,4 @@ First public release.
 
 [0.0.2]: https://github.com/unswei/blackwell/releases/tag/v0.0.2
 [0.0.3]: https://github.com/unswei/blackwell/releases/tag/v0.0.3
+[0.0.4]: https://github.com/unswei/blackwell/releases/tag/v0.0.4

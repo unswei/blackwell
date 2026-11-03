@@ -54,6 +54,14 @@ The residual belongs to the observation family because measurement topology is
 model-specific. Range-bearing models wrap bearing differences; linear models
 subtract directly.
 
+The linear family also provides explicit preparation and application of
+finite-horizon conditional mean responses. `PredictionResponse` is an immutable
+PyTree of linear operators and affine offsets, built from `LinearDynamics`.
+This supports batched model evaluation with the same JAX execution conventions;
+it does not add an inference or optimisation framework. Covariance propagation
+and measurement updates remain filter operations. See
+[Reuse linear predictions](guides/linear-prediction.md).
+
 ## Filters own inference
 
 The EKF receives a local Gaussian belief, uses model Jacobians, retracts the
@@ -64,6 +72,16 @@ likelihoods and exposes resampling as a separate policy decision.
 Neither filter owns landmarks, model covariances or a particular state
 representation. This makes the same inference kernel usable for built-in and
 compatible custom model families.
+
+## Metrics consume outcomes
+
+Evaluation operates on arrays rather than owning a model, selector or simulator.
+The decision metrics handle one fixed-capacity candidate bank per call and
+return immutable PyTrees with observation and defined flags. Experiments own
+costs, acceptance criteria and the selected index. Completion extraction and
+paired study summaries remain in the runnable example until shared use cases
+justify a library interface. See
+[decision-relevant model evaluation](guides/decision-relevant-evaluation.md).
 
 ## Supported public surface
 

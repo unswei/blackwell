@@ -88,11 +88,13 @@ inversion and point transformation with correlated inputs.
 
 - Euclidean and right-retraction SE(2)/SE(3) state spaces
 - Linear dynamics and observations
+- Reusable finite-horizon linear mean predictions and exact input sensitivities
 - SE(2) body-motion and known-landmark range-bearing models
 - Manifold-aware extended Kalman filtering
 - Bootstrap particle filtering with explicit ESS and systematic resampling
 - Reproducible trajectory simulation
 - RMSE, planar position RMSE and NEES metrics
+- Finite-candidate selection regret and observed binary decision counts
 - Runnable linear, SE(2) EKF, particle-localisation and correlated SE(3) examples
 
 Blackwell does not yet include built-in IMU models, smoothing, SLAM state
@@ -117,6 +119,8 @@ cd blackwell
 uv sync --all-extras
 uv run python examples/quickstart.py
 uv run python examples/linear_kalman_filter.py
+uv run python examples/linear_prediction.py
+uv run python examples/decision_relevant_model_evaluation.py
 uv run python examples/se3_uncertainty.py
 uv run python examples/se2_localisation.py --plot localisation.png
 uv run python examples/particle_localisation.py --plot particles.png
